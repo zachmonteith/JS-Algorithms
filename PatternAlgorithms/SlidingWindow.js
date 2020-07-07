@@ -14,3 +14,20 @@ function maxSubarraySum(arr, num){
     }
     return maxSum;
 }
+
+
+function minSubArrayLen(arr, target){
+    let tempSum = 0;
+    let i = 0;
+    while (tempSum < target ){
+        tempSum += arr[i];
+        i++;
+    }
+    let minLen = i;
+    for (let j = 0; j <= arr.length; j++ ) {
+        tempSum -= arr[j];
+        tempSum >= target ? --minLen : tempSum += arr[j + minLen]
+    }
+  if (minLen > arr.length) return 0;
+  return minLen;
+}
