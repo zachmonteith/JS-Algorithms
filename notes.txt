@@ -1,0 +1,209 @@
+JavaScript Algorithms and Data Structures Masterclass Notes
+
+Big O.  I know about this but I’ll put any notes here that are a surprise.  “tell me the big O of this function” is a common interview question.
+
+Example: write function that calculates sum from 1 to n
+VERSION 1
+function addUpTo(n) {
+    let total = 0;
+    for (let i = 1; i<=n; i++) {
+        total += i;
+    }
+    return total;
+}
+
+console.log("your total is", addUpTo(6))
+VERSION 2
+//single line, same problem as previous but without loop.  This uses a mathematical formula rather than looping.
+function addUpTo(n) {
+    return n * (n + 1) / 2;
+}
+
+console.log("quickly!  sum is", addUpTo(6));
+
+The Problem With Time
+1)	Different machines will record different times (due to processor speed, configurations etc)
+2)	The SAME MACHINE will record different times (depending on other processes running)
+3)	For fast algorithms, this measurement may not be precise enough
+
+Lets try counting number of simple operations.
+Fast version has totally only 3 operations: one multiplication, one addition, one division.
+Slow version has: 2 operations per increment of index variable in for loop (addition and assignment) also, 2 per increment of total.  Also, comparisons, initial variable assignment…..  Therefore, complexity  is like 5n+2.  But, lets just say, grows proportionally with n.
+
+This means big o is linear.
+
+
+BIG O is formalized fuzzy counting.  Formally describing relationship between input size and runtime.  No details just trends.  Scalability.
+O(f(n)) : number of simple operations is eventually less than a constant times f(n) as n increases.
+
+Linear f(n) = n, quadratic f(n) = n^2, constant f(n) = 1 or something else
+Big o should represent worst case, upper bound of runtime.
+
+SO:  our fast add example is O(1) and slower is O(n)
+
+If we nest a loop within a loop we will get O(n^2)
+
+Shorthands: arithmetic operations, variable assignment, accessing elements in an indexed array or hash is constant
+In a loop the complexity is the length of the loop.
+
+Logarithmic time complexity is more common with searching and sorting algorithms, and log space complexity can come up with recursive algorithms.
+
+Space Complexity
+
+You can still use big o notation, but this has to do with memory used not with time.
+(auxilery space complexity: the algorithm only, not the inputs)
+Primmitives are constant space (Booleans, numbers, undefined, null)
+
+Strings require O(n) space, where n is length of string (number of characters)
+Reference types are also generally O(n): the length of the array or the number of key/value pairs
+
+
+JavaScript Objects!
+Unordered key value pairs (hash)
+Let instructor = {
+	firstName: “Kelly”,
+	isInstructor: true,
+	favoriteNumbers: [1,2,3,4]
+}
+
+Fast access and insertion, order isn’t relevant.
+
+Insertion, removal, and access are all O(1), searching is O(n)
+Methods of javascript objects: Object.keys(the object)
+
+Arrays
+When to use array?  Well, when you need order.  Also theyre built in.
+Insertion and removal, complexity depends on if you are pushing, or if you are having to reindex everything by adding to front or middle of list.
+Searching O(n)
+Accessing: O(1)
+Push and pop are O(1) but all other built in methods are O(n) except sort
+
+How do you improve on solving problems
+1)	Devise a plan
+2)	Master common patterns
+
+Steps
+-	Understand the problem
+Ask questions! Either to yourself or interviewer.  1) can I restate the problem in my own words?
+							2) what are the inputs that go into the problem?
+							3) how about the outputs from the solution, and what do they look like?
+							4) can outputs be determined from inputs?  Do I have enough info to solve the problem?
+							5) how should I label the important pieces of data? (what are the things that really matter and what is the terminology I should use?)
+
+Example: write a function that takes 2 numbers and returns their sum.
+1)	Can I restate the problem in my own words?  Sure.  Implement addition.  Write a function that adds two numbers.
+2)	What are the inputs that go into the problem?  (integers? Floating points? How large are the numbers going to be (upper bounds)?  Are we only working with two inputs?  What if one is left off, or we get more than 2 inputs?
+3)	What should the output look like?  Similar questions, should it be integer? Float? String?
+4)	Can the outputs be determined from the inputs?  Potentially, but what do we output if inputs aren’t the right numbers etc.
+5)	How should I label the important pieces of data?  Name the function add, num1 and num2 arguments, sum is result.
+
+-	Explore concrete examples
+Coming up with examples can help you understand the problem better.  Also provides sanity checks, make sure solution works the way it should.  User Stories!
+
+Start with SIMPLE examples.  Write down two or three, with the input and the output.  Actually physically write it down.
+Progress to more complex examples and edge cases
+Explore examples with empty inputs
+Explore examples with invalid inputs
+
+	Example: write a function which takes in a string and returns counts of each character in the string.
+
+charCount(“aaaa”); //{a:4}
+charCount(“hello”); // {h:1, 3:1, l:2, o:1}
+those are simple examples.  What about strings that include numbers?  Uppercase vs lowercase?  “my number is 55521234” “Hello hi”
+
+what if empty string? Or completely empty input?  Or something that isn’t a string at all?  What do we want to return?
+
+These edge cases may not be as important for interview but will be important for real world problem solving.
+
+
+
+-	Break it down
+This could just be pseudocode.  Do them as comments?  You could even throw in a “does that sound crazy to you?”  explicitly write out the steps you will need to take.  Basic components of solution.  This forces you to think about the code before you write it, and will catch any lingering conceptual issues or misundrestandings.
+
+Function charCount(str){
+// make object to return at end
+var result = {};
+// loop over string
+	For(var I = 0;
+	// for each character, if char is a number/letter and already key in object, increment.  If alphanum and not in object, add and set value to 1.  If not alphanum do nothing.
+// return object at end
+// return an object with keys that are lowercase alphanumeric characters and values that are count of the times they appeared.
+
+
+-	Solve/simplify
+Solve the problem if you can, but if not, solve a simpler problem!  Break it down into the pieces you do know how to do.  Why is this worthwhile?  In an interview setting you want to have SOMEHTING to show for yourself, so rather than getting stuck and making zero progress, start writing code and demonstrating the stuff you know how to do.  Also, in simplifying the problem, you will often gain insight into how to solve the bigger problem.  Go for it!
+
+Find the core difficutly
+Ignore it
+Write simplified solution
+Incorporate difficulty back in.
+
+
+-	Look back and refactor
+Most important step in terms of improving and becoming a better developer
+Just because you have a good enough workable solution, don’t fall into temptation to stop there!  That might get by (including in a lot of jobs), but wouldn’t you rather strive for more beautiful, efficient code?  Missed opportunity not to look back and reflect
+Some questions you can ask:
+	Can you check the result?
+	Can you derive the result differently? (rarely only one solution to a problem)
+	Can you understand it at a glance? (how intuitive is your solution?)
+	Can you use the result, or the method, for some other problem?  (are there similarities to other problems you have encountered?)
+	Can you improve the performance of your solution? (big o time or space complexity)
+	Can you think of other ways to refactor?  (do you follow the style guide/conventions?  Acknowledge if your code isn’t neat)
+	How have other people solved this problem?  (often interview questions get recycled.  Pick their brain!  Ask what other solutions have been attempted or whether you missed anything!  You can learn a lot from this, whether or not you get the job.  Also, don’t need to reinvent the wheel when working on your own projects)
+
+
+
+Mastering Common Problem-Solving Patterns
+These are blueprints for implementing common solutions
+
+Frequency counter pattern:
+	Uses objects or sets to collect values/frequency of values.  This can often avoid the need for nested loops when working on arrays or strings
+
+Example: write a function called “same” which accepts two arrays.  Should return true if every value in the second array has its corresponding value squared in the second array.  The frequency of values must be the same (if a value appears once, only one copy of its square)
+
+Naïve approach:
+Compare length of arrays, return false if not equal
+Iterate thru first array, taking each value.  Square the value and look for it in the second array.  Remove the square from the second array.  If at any point during that comparison the result is false, return false.  Otherwise if you get all the way thru the array and its always true, return true.
+
+But this is a nested loop approach!
+Lets try frequency counter approach.  Loop over each array 1 time individually.  2 loops is vastly better than nested loops.
+So, frequency counter converts each array into an object (hash) where keys are numbers and values are frequency that number appears.
+It does this by: for of loop, with each array element, key into object (remember, numbers in array are keys in object) and assign a new value using a || (or) statement like so:
+obj[val] = (obj[val] || 0) + 1
+that way if it already exists it will add 1, and if it does not it will add 1 to zero, resulting in 1
+after going through each array, compare the two objects, one at a time.
+
+Multiple Pointers Pattern:
+This works best with ordered arrays/sorted lists.  Imagine we want to find two values that add up to zero.  We could do a nested loop, comparing one item at a time to every other.
+
+Rather than a nested loop, we have one pointer point at smallest value (index 0) and the other at largest (index = length - 1).  Compare those (in this case, add them).  If a positive result, decrement high index.  If negative, increment low index.  If zero, you win! Return those values.
+
+Could also use for countUniqueValues.  This fn accepts a sorted array and counts the unique values.
+
+Sliding Window Pattern:
+Useful when you have a string or array and you want to find a continuous subset from that data.  Such as, longest substring of unique chars, or max sum sub array from larger array (of continuous values).
+You could do nested loops, where first loop looks at one element at a time, and then second loop adds (or checks uniqueness) for each element after, stores the final solution based on that starting point and then moves on to the next.
+Above is O(N^2).
+
+But sliding window is better, because it means we don’t have to re-check or re-add quite so many times! O(n)
+So, add or check the length you want, then move the window by removing the first value and adding the one that follows your last value in your prior sub-array or sub-string.
+
+Divide and Conquer:
+Take larger set of data and rather than starting from left and moving to right, start by dividing into smaller pieces and doing something to each smaller piece to determine where to go next
+Depending on the problem this can be a significant helper.
+Binary search is an example of this.
+Linear search is O(n), binary is O(log n)
+
+
+
+
+
+RECURSION
+
+
+
+
+
+generally, most problems can either be solved by recursion or iteration
+
+Martin and the Dragon
