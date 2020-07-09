@@ -200,10 +200,33 @@ Linear search is O(n), binary is O(log n)
 
 RECURSION
 
-
-
-
-
 generally, most problems can either be solved by recursion or iteration
 
-Martin and the Dragon
+objectives:
+•	define recursion
+•	explicitly identify two essential components
+•	visualize call stack
+•	use helper methods AND pure recursion.
+
+Function that calls itself
+Can be cleaner than iteration.
+
+Call Stack
+FILO/LIFO
+Invoke, push onto call stack
+Return, pop off of call stack
+With recursion, we keep pushing the same function onto the call stack without returning until we reach our base case
+
+Factorial!
+
+Common pitfalls:
+Forget to include base case (causes recursion loop stack overflow)
+Forget to return, or return wrong thing
+
+Helper methods
+Helper method is recursive and invoked within some other function.  This way you can initialize variables without overwriting them during recursion.
+
+Pure Recursion
+Rather than helper methods, this involves creating a new array and including it in your recursive invocation.  Example:
+new = new.concat(recursiveFunction(old.slice(1)));
+return new;
