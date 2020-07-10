@@ -1,6 +1,6 @@
 JavaScript Algorithms and Data Structures Masterclass Notes
 
-Big O.  I know about this but I’ll put any notes here that are a surprise.  “tell me the big O of this function” is a common interview question.
+Big O.   “tell me the big O of this function” is a common interview question.
 
 Example: write function that calculates sum from 1 to n
 VERSION 1
@@ -230,3 +230,46 @@ Pure Recursion
 Rather than helper methods, this involves creating a new array and including it in your recursive invocation.  Example:
 new = new.concat(recursiveFunction(old.slice(1)));
 return new;
+
+
+Search
+Linear search
+Just like it sounds, loop through all contents until you either find the item you are searching for or you reach the end.
+Javascript has built-in linear search methods: indexOf, includes, find, findIndex
+
+Pseudocode linear search (accepts an array and a value)
+Loop thru array and check if current element is equal to value
+If it is return index
+If not, return -1
+
+Binary Search
+Only works on sorted data.  Cut in half each time you search (similar to “higher/lower” game).
+Take middle element and determine if value you search for is before or after
+“divide and conquer”.  Pivot Point.
+
+Pseudocode binary search
+Accept a sorted array and a value
+Create a left pointer variable and a right pointer variable (index variables)
+Loop while left is less than right
+Create pointer in middle
+If that’s the value you want, return the index
+If its too small, left = center
+If too big, right = center
+Pick a new middle
+If after loop value is not found, return not found (-1)
+
+Time complexity is significantly less.  Worst and average case are both O(log n) and best case is O(1)
+
+“naïve” string search
+Imagine you want to count the number of times a smaller string appears in a larger string.
+
+Pseudocode:
+Accept a long string and a short string
+Loop over the longer string
+Loop over short string
+If characters don’t match, break out of inner loop
+If they do match, move on to next character until you hit end of short string.
+If you hit end of short string, you have a match: increment count of matches
+At the end of long string, return the count.
+
+In order to reduce time complexity, this is when you would implement Knuth-Morris-Pratt algorithm (KMP)
