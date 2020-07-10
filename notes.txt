@@ -273,3 +273,13 @@ If you hit end of short string, you have a match: increment count of matches
 At the end of long string, return the count.
 
 In order to reduce time complexity, this is when you would implement Knuth-Morris-Pratt algorithm (KMP)
+
+Pseudocode KMP
+Make array to track prefix/suffix patterns in short string
+(two index variables on short string (I and j).  Increase i and add values to pattern array each time.  If value at j matches value at i, then value should be j+1 and both j and I should be increased.  If they do not match, j = patternArray[j-1], while I remains the same. )
+Once pattern array length is the same as short string length, move on to actual search
+Compare long string to short string, starting at index zero
+If they are same, check if short string index is at the end (in which case increment return value counter), then increment both pointers
+Else, if short index is greater than zero, keep long string index the same, short pointer = array[short pointer-1] or zero, just like when you built the array
+if short pointer is zero and they don’t match (this is just an “else” situation) increase text pointer
+Once you reach the end of the long string, you are finished and can return the count variable.
