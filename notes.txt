@@ -274,7 +274,7 @@ At the end of long string, return the count.
 
 In order to reduce time complexity, this is when you would implement Knuth-Morris-Pratt algorithm (KMP)
 
-Pseudocode KMP
+Pseudocode kmp
 Make array to track prefix/suffix patterns in short string
 (two index variables on short string (I and j).  Increase i and add values to pattern array each time.  If value at j matches value at i, then value should be j+1 and both j and I should be increased.  If they do not match, j = patternArray[j-1], while I remains the same. )
 Once pattern array length is the same as short string length, move on to actual search
@@ -283,3 +283,66 @@ If they are same, check if short string index is at the end (in which case incre
 Else, if short index is greater than zero, keep long string index the same, short pointer = array[short pointer-1] or zero, just like when you built the array
 if short pointer is zero and they don’t match (this is just an “else” situation) increase text pointer
 Once you reach the end of the long string, you are finished and can return the count variable.
+
+
+
+Elementary Sorting Algorithms
+
+Sorting is considered the quintessential CS challenge
+Generally, this is rearranging the items in a collection (such as an array) so theyre in some kind of order.
+Things you could sort by:
+•	small to large
+•	alphabetically
+•	date
+
+simple challenge, but lots of different ways to do it.  There are lots of well known and named searching algorithms.  Some are pretty robust and are good for many use cases.  Some are more “niche” and might be bad at certain types of data but great at others.  Each have their own advantages and disadvantages.
+
+JS Built In Array.sort method
+Works for alphabetical but not for numbers.  Uses string Unicode code points.
+You can pass in how to sort as an argument and that will help.
+Accepts optional comparator function
+
+Comparator looks at pairs of elements and determines sort order based on return value
+If it returns a negative number, then A comes before B, if positive a after b, if 0 they are equivalent value
+
+For example: function numberCompare(num1, num2){
+Return num1 – num2
+}
+
+Then if you pass that function in to the sort, it will sort them numerically small to large
+
+Bubble Sort
+Not very efficient or commonly used, really only has one or two use cases where it excels
+Its fun and there are optimizations you can make.  Helps you understand how other sort algorithms are better
+Compare 2 adjacent and swap if those two aren’t in prescribed order
+Go thru the list over and over until you can make it thru without a single swap
+
+Swapping: how does it work?
+Tried and true, more legible:
+Function swap(arr, idx1, idx2){
+	Var temp = arr[idx1];
+	Arr[idx1 = arr[idx2];
+Arr[idx2] = temp
+
+Fancier, inline version:
+Const swap = (arr, idx1, idx2) => { [arr[idx1], arr[idx2]] = [arr[idx2], arr[idx1]]; }
+
+Bubble sort pseudocode
+Start looping with a variable called I at the end of the array towards the beginning
+Start an inner loop with a variable called j, going from the beginning until i-1
+If arr[j] > arr[j+1], swap the two values
+Return sorted array
+
+
+Selection Sort
+Similar to bubble sort but instead of swapping each pair, you only swap after comparing all.  What does this mean?
+Set a temp minimum as you iterate through, then swap the min with the first value.  0th is now set and you can move to next index and so on.
+(you could also go the other direction and seek the max, doesn’t really matter)
+
+Pseudo code:
+Reuse swap functionality from bubble sort, same logic.
+Loop over the array and on each loop, smallest seen so far starts as first index
+Compare to next and next and next until you find smaller (nested loop)
+If smaller found, make note of the index of smaller value
+Once you get to the end, swap min with first index and do it again with the next index and the next until you reach the end of the list and its all sorted
+Return the sorted array
