@@ -346,3 +346,23 @@ Compare to next and next and next until you find smaller (nested loop)
 If smaller found, make note of the index of smaller value
 Once you get to the end, swap min with first index and do it again with the next index and the next until you reach the end of the list and its all sorted
 Return the sorted array
+
+Insertion sort
+Builds up the sort by gradually creating a larger half of the array which is always sorted
+Instead of finding largest or smallest, takes each element and places it where it should go in the sorted half
+
+Pseudocode:
+Start with second element of array
+Compare to the one before and swap if necessary
+Continue to next element, if it’s in the incorrect order, iterate through sorted portion (left side) and place it in the correct spot
+Repeat until sorted
+
+Big O worst case, insertion is quadratic O(n^2).  But if almost all sorted, gets much closer to linear (O(n))
+
+Online algorithm: can work with live data being added in, can sort each new piece of data as it comes in.  doesn’t matter what item comes in, your logic can place it where it needs to go.
+
+Comparing bubble, selection and insertion
+best time, average time, worst time, space
+bubble      O(n)          O(n^2)          O(n^2)          O(1)
+insert      O(n)          O(n^2)          O(n^2)          O(1)
+select      O(n^2)       O(n^2)          O(n^2)          O(1)
