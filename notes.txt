@@ -363,6 +363,74 @@ Online algorithm: can work with live data being added in, can sort each new piec
 
 Comparing bubble, selection and insertion
 best time, average time, worst time, space
-bubble      O(n)          O(n^2)          O(n^2)          O(1)
-insert      O(n)          O(n^2)          O(n^2)          O(1)
-select      O(n^2)       O(n^2)          O(n^2)          O(1)
+bubble      O(n)            O(n^2)          O(n^2)          O(1)
+insert      O(n)            O(n^2)          O(n^2)          O(1)
+select      O(n^2)          O(n^2)          O(n^2)          O(1)
+
+
+Intermediate sorting algorithms
+Implementing merge sort, quick sort and radix sort
+These can get as low as O(n log n) in times the others would be quadratic
+These are more complex algorithms.  Not intuitive for human thought patterns
+
+
+Merge sort
+Splitting, Merging and Sorting
+Exploits the fact that an array of 1 element (or zero) is already sorted.
+Decomposes an array into smaller arrays (divide and conquer) with zero or one elements
+
+Merging two sorted arrays
+Input is two sorted arrays, function should create new sorted array consisting of all elements in the input arrays
+Should run O(n+m) time and space and should not modify the arrays that are passed in
+
+PSEUDOCODE
+Create empty array for return later, start with smallest values in each input array, two counters
+While counters are less than lengths
+	If the value in the first array is smaller than the value in the second, push the value in the first into the results and then increment counter
+	If larger, push second array val and inc that count
+	Once one array is done, push all from other
+
+Break the array into halves until you have arrays that are empty or have one element.
+Use slice: from zero to middle of array, from middle to zero.
+Do this recursively, when length <=1 is base case
+Once have smaller arrays, merge back until fully sorted and return
+
+Big O
+In all cases, time complexity is O(n log n).  space is O(n).
+Why n log n?
+Because splitting step is log!  It’s a powers of two type thing.  Merging is n because you have to merge all the things individually but splitting will only happen log(n).  num of splits^2 = the original number being split
+
+
+
+Quick Sort
+Like merge, also exploits fact that arrays of 1 or less length are inherently sorted.
+
+Works by selecting one element (the pivot) and finding the index where the pivot should end up in the sorted array
+Once pivot is positioned appropriately, quick sort can be applied on either side of pivot.
+
+Pivot Helper
+given array, designate one element as the pivot
+rearrange elements in the array so that all values less than the pivot are moved to the left, then all values greater are to the right
+order of elements doesn’t matter, just relationship to pivot
+do this in place, rather than making new array
+return index of pivot
+
+picking a pivot is an important decision
+ideally should be median value in data set
+for simplicity, to start, we will make first element be pivot
+
+pseudocode
+accepts three arguments: array, startidx, endidx (default should be 0 and length-1)
+grab pivot from start of array
+store in variable
+loop thru array
+if pivot is greater than current element, increment pivot index variable and swap current element with element at pivot index
+swap starting element (i.e. pivot) with pivot index
+return pivot index
+
+call pivot helper on full array
+recursively call it to left and right of pivot
+
+
+NOTE that this approach modifies the array in place.  Merge sort approach didn’t actually modify original array, just returned a new sorted array (though this could easily be changed with one line of code)
+Best case O(n log n), worst case O(n^2)
