@@ -363,9 +363,9 @@ Online algorithm: can work with live data being added in, can sort each new piec
 
 Comparing bubble, selection and insertion
 best time, average time, worst time, space
-bubble      O(n)            O(n^2)          O(n^2)          O(1)
+bubble    O(n)            O(n^2)          O(n^2)          O(1)
 insert      O(n)            O(n^2)          O(n^2)          O(1)
-select      O(n^2)          O(n^2)          O(n^2)          O(1)
+select      O(n^2)       O(n^2)          O(n^2)          O(1)
 
 
 Intermediate sorting algorithms
@@ -432,5 +432,41 @@ call pivot helper on full array
 recursively call it to left and right of pivot
 
 
-NOTE that this approach modifies the array in place.  Merge sort approach didn’t actually modify original array, just returned a new sorted array (though this could easily be changed with one line of code)
-Best case O(n log n), worst case O(n^2)
+NOTE that this approach modifies the array in place.  Merge sort approach didn’t actually modify original array, just returned a new sorted array
+
+
+Radix Sort
+Doesn’t involve making comparisons!! Integer sort
+Only works with numbers (integers, tho u can use binary numbers to represent other things) base 10 numbers
+Group numbers based on their final digit
+Put them in order based on last digit
+Then look at next digit
+Sort them based on second digit, keeping them ordered by first digit as well
+Put them back in order
+Now third digit, sort into the ten buckets again, again keeping them ordered
+Do this as many times as the largest number in the dataset has digits
+
+Helper methods are needed
+
+getDigit(num, place), returns the digit in num at the given place value aka digit
+this needs to return 0 if the number doesn’t have that digit (third digit of 24 for instance)
+
+could convert to string and use index and convert back to number at end, but strings are indexed from the left side so that’s confusing, you might have to reverse it or do math or use negative indices.
+
+Can also do math: divide by powers of ten and do other math to get answer
+
+Also need a digit counter that will return number of digits for each number.  Again, could convert to string, or could do with math (log10)
+
+Another one: mostDigits: given an array of numbers, return the number of digits in the largest number
+
+Pseudocode for radix sort
+Define function that accepts array of nums
+How many digits does largest number have
+Loop that many times
+Each time, create buckets for each digit (empty array, with ten sub arrays, all start empty)
+Place each number in the corresponding bucket based on the current digit
+Keep order, concat into one array
+Outer loop and inner loop
+At end return list
+
+Big O complexity: O(nk) where n is how many numbers and k his how many digits the largest number has.  Space complexity is O(n+k)
