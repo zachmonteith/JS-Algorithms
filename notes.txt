@@ -470,3 +470,188 @@ Outer loop and inner loop
 At end return list
 
 Big O complexity: O(nk) where n is how many numbers and k his how many digits the largest number has.  Space complexity is O(n+k)
+
+Data Structures
+Ok!  Here we go, data structures and related concepts
+Data structures are collections of values, the relationships among them, and the functions or operations that can be applied to the data
+Different data structures excel at different things.  Some are highly specialized while others are more generally used.
+
+Likely to need a more complex data structure at some point.  Might need something more efficient or to express a different relationship.  Might be working with an api or library that returns a graph.  You’ve probably already worked with these anyway.
+
+Map/location data?  Use a graph.  An ordered list with fast inserts/removals at any point?  Linked list.  Web scraping nested html?  Use a tree.  Writing a scheduler?  Use a binary heap!
+
+ES2015 class syntax
+Js doesn’t REALLY support OOP, but es2015 includes class keyword which will allow us to do some.
+
+What is a class?
+A blueprint for creating objects with pre-defined properties and methods.
+
+Implement your data structures as classes.
+
+class Student {
+	constructor(firstName, lastName, year){
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.grade = year;
+		this.tardies = 0;
+		this.scores = [];
+	}
+    static enrollStudents(...students){
+        //maybe send an email here?
+    }
+
+    fullName() {
+    return `Your full name is ${this.firstName} ${this.lastName}`;
+    }
+    markLate(){
+        this.tardies++;
+        if(this.tardies >= 5) {
+            return "YOU ARE EXPELLED!!!!"
+        }
+        return `${this.firstName} ${this.lastName} has been late ${this.tardies} times`;
+    }
+    addScore(score){
+        this.scores.push(score);
+        return this.scores;
+    }
+    calculateAverage(){
+        let sum = this.scores.reduce(function(a,b){return a+b;})
+        return sum/this.scores.length;
+    }
+}
+let firstStudent = new Student("Zach", "Monteith", 4);
+
+
+Keyword “this” meaning changes depending on context.
+Inside a constructor or other instance method, “this” refers to individual instance of class
+“new” keyword instantiates instance of class
+
+Instance methods
+Provide functionality that pertains to a single instance of a class
+Built in array methods are instance methods, for example
+
+
+Adding Class Methods
+
+Static methods
+The static keyword defines a static method for a class.  Static methods are called without instantiating their class and cannot be called through a class instance.  Static methods are often used to create utility functions for an application.
+
+So instead of firstStudent.enrollStudents, it would be Student.enrollStudents
+
+We will almost never use static methods in this course.
+
+Recap:
+-	classes are blueprints that when created make objects known as instances
+-	classes are created with the new keyword
+-	the constructor function is a special function that is gets run when the class is instantiated
+-	instance methods can be added to classes similar to methods in objects
+-	class methods can be added using the static keyword
+
+
+Singly Linked Lists
+Data structure that contains head, tail, and length properites
+Linked lists consist of nodes, each node has a value and a pointer to another node (or null if it is the tail)
+
+Lists do not have indices.  Connected via nodes with a next pointer.  Random access is not allowed, you must traverse
+Arrays on the other hand, insertion and deletion can be expensive as everything must be re-indexed
+
+Needs instance method of Push
+Pseudocode:
+Function should accept a value
+Create a new node using that value
+If there is no head property on the list, set the head and the tail to be the new node
+Otherwise set the new node to be the “next” property of the current tail and set the tail to be the new node
+Increment length by 1
+
+Pop
+Removes a node from the end of the list and returns its value
+When removing the tail, you must assign a new tail
+But to find the tail you have to start from the head and work to the end because it’s a singly linked list!
+Use two variables for this and keep incrementing each until you find a next of null
+
+Pseudocode
+If no nodes, return undefined (no head, length is zero, etc)
+Loop thru list until you reach tail
+Set next property of the 2nd to last node to be null
+Make that node be the tail
+Decrement length
+Check if length = 0, if so set head and tail to null
+Return removed node
+
+Shift
+Remove node from beginning of list
+Take the head, cut it off, make head’s next be the new head, return the head.
+
+Pseudocode
+If no nodes return undefined
+Store current head in a var
+Update head to be current head’s next
+Decrement length by 1
+Return removed node
+
+Unshift
+Add a new node to the BEGINNING of the list (unlike push which sticks it on the end)
+
+Pseudocode
+Function accepts value
+Create new node and give it the value
+Check if there’s a head.  If not, make new node head and tail.
+If yes, set new node’s next to old head, and set new node to new head.
+Increment list length
+Return list
+
+Get
+Retrieving a node by its position in the Linked List (essentially, an index)
+
+Function should accept an index
+If outside of the range (less than zero, greater than this.length) return null
+Loop thru the list until you reach the index and return that node (for loop with index var)
+
+Set
+Change the value of a node based on its position in the list (as opposed to inserting a value)
+Function should accept a value and an index
+Can use the get function to find the relevant node
+If not found, return false
+If found, set value, return true
+
+Insert
+Like set, but instead of overwriting, it inserts at the position
+
+If index is less than zero or greater than length, return false
+If index is same as length, push a new node to the end
+If index is zero, unshift node to start
+Create a new node
+Get(index-1) and set its next to be the new node’s next, and then make it’s next BE the new node
+Increment length
+Return true
+
+Remove
+Takes in an index, removes the value at that index, ensures linkages get patched
+
+If index is zero or greater than length, return undefined (or null)
+If index is same as length-1, pop
+If index is zero, shift
+Otherwise, use get and find node at index -1
+Set next property on previous node to be next of node you intend to remove
+Decrement length
+Return removed node
+
+Reverse
+Reverse the linked list in place!
+
+Swap head and tail
+Create vars next and prev
+Create current and make it the original head
+Loop thru list (for loop up til length)
+In order:
+Set “next” to be current’s next
+Set “current’s next” to prev
+Set “prev” to current
+Set current to next
+After loop completes return the list
+
+Big O of common operations in singly linked list
+	Insertion is O(1)
+Removal is either O(1) or O(n) depending on if you are removing head or tail, or something in the middle (especially NEAR the tail)
+Searching is O(n)
+Accessing at an index is O(n) because its basically the same as searching
