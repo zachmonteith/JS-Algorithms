@@ -655,3 +655,82 @@ Big O of common operations in singly linked list
 Removal is either O(1) or O(n) depending on if you are removing head or tail, or something in the middle (especially NEAR the tail)
 Searching is O(n)
 Accessing at an index is O(n) because its basically the same as searching
+
+Doubly Linked List
+Similar to singly!  But, nodes also point to the ones behind them.  This lets one traverse in either direction, making some operations more efficient.  But it takes up more memory.  Always tradeoffs.
+
+Lets stick some methods in here.
+
+Push pseudocode
+Create a new node with the value passed to the function
+If this.head is null set the head and tail to be the new node
+Else set the next property on tail node to be new node
+Set previous property on new node to tail
+Make tail be the new node
+Increment length
+Return list
+
+Pop pseudocode
+Popping is easier in double than single, because you don’t have to iterate thru the list: you can actually work backwards!
+
+If no head return null
+Store current tail in var to return later
+If length is 1, set head and tail to null
+Update tail to be old tail’s prev
+Set new tails next to null
+(set return value’s prev to null)
+Decrement length
+Return removed value
+
+Shift pseudocode (remove from beginning)
+If length is zero (no head etc) return null
+Store current head in variable
+If length is one set head and tail to be null
+Else make the head be the old head’s next
+Set new heads prev to null
+Set old heads next to null
+Decrement length
+Return removed value
+
+Unshift pseudocode (add to beginning)
+Create new node with val passed in to fn
+If length is zero, make it the head and tail
+Else, set head.prev to new node, set new node.next to be head, and make the new node the head
+Increment length
+Return list
+
+Get pseudocode (optimized for double)
+If index is elss than zero or >= length return null
+If index is < half of length rounded down
+	Loop from head and return node when found
+If greater or equal
+	Loop thru from tail toward head and return when found
+
+Set pseudocode
+Exact same as single
+
+Insert (optimized for double)
+If index is out of range return false
+If 0, unshift
+If length, push
+Otherwise, use get to find the nodes you want
+Fix all the prev and next properties (involves 4 reassignments)
+Increment length
+Return true
+
+Remove
+If idx is less than zero or greater than length return null
+If zero shift
+If length-1, pop
+Otherwise use get to get the one you are removing
+Make its next be its prev’s next and its prev be its next’s prev
+Set its next and prev to null
+Decrement length
+Return node
+
+Big O comparison
+Doubly:
+Insertion O(1) (same as single)
+Removal O(1) (different from single!)
+Searching O(n) (optimized to O(n/2) but this still linear)
+Access O(n) (same, optimized)
